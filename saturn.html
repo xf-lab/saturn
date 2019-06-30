@@ -12,59 +12,48 @@
 <script>    
     let scene, camera, renderer;
     let disc, disc2, disc3, sphere;
+    let saturn = [];
     let ADD = 0.1;
-    
-    let randomInRange = function(from, to) {
-        let x = Math.random() * (to - from);
-        return x + from;
-    };
-    
-    let createDisc = function() {
-        let geometry = new THREE.TorusGeometry(9, 0.6, 2, 40);
-        
-        let material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
-        
-        
-        disc = new THREE.Mesh( geometry, material );
-        disc.position.y = -10;
-        disc.rotation.x = 1.7;
-        disc.rotation.y = 0.4;
-        scene.add(disc);
-    };
-    let createDisc2 = function() {
-        let geometry = new THREE.TorusGeometry(7.5, 0.6, 2, 40);
-        
-        let material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
-        
-        
+
+    let createSaturn = function(){
+
+        //PLANET
+        let geometry = new THREE.SphereGeometry(6.24, 30, 30, 0);      
+        let material = new THREE.MeshBasicMaterial({color: 0x543510});           
+        planet = new THREE.Mesh( geometry, material );
+        planet.position.y = -10;
+        scene.add(planet);
+
+        //DISC1
+        geometry = new THREE.TorusGeometry(9, 0.6, 2, 40); 
+        material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
+        disc1 = new THREE.Mesh( geometry, material );
+        disc1.position.y = -10;
+        disc1.rotation.x = 1.7;
+        disc1.rotation.y = 0.4;
+        saturn.push(disc1);
+        scene.add(disc1);
+
+        //DISC2
+        geometry = new THREE.TorusGeometry(7.5, 0.6, 2, 40);      
+        material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
         disc2 = new THREE.Mesh( geometry, material );
         disc2.position.y = -10;
         disc2.rotation.x = 1.7;
         disc2.rotation.y = 0.4;
+        saturn.push(disc2);
         scene.add(disc2);
-    };
-    let createDisc3 = function() {
-        let geometry = new THREE.TorusGeometry(10.5, 0.6, 2, 40);
-        
-        let material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
-        
-        
+
+        //DISC3
+        geometry = new THREE.TorusGeometry(10.5, 0.6, 2, 40);
+        material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
         disc3 = new THREE.Mesh( geometry, material );
         disc3.position.y = -10;
         disc3.rotation.x = 1.7;
         disc3.rotation.y = 0.4;
+        saturn.push(disc3);
         scene.add(disc3);
-    };
-     let createSphere = function() {
-        let geometry = new THREE.SphereGeometry(6.24, 30, 30, 0);
-        
-        let material = new THREE.MeshBasicMaterial({color: 0x543510});
-               
-        sphere = new THREE.Mesh( geometry, material );
-        sphere.position.y = -10;
-        scene.add(sphere);
-    };
-    
+    }   
     
     // set up the environment - 
     // initiallize scene, camera, objects and renderer
@@ -80,10 +69,12 @@
         camera.position.z = 20;
         camera.position.y = -10;
 
-        createDisc();
+        /*createDisc();
         createDisc2();
         createDisc3();
-        createSphere();
+        createSphere();*/
+
+        createSaturn();
         
         // create the renderer   
         renderer = new THREE.WebGLRenderer();   
