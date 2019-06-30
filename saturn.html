@@ -13,7 +13,7 @@
     let scene, camera, renderer;
     let disc, disc2, disc3, sphere;
     let saturn = [];
-    let ADD = 0.1;
+    let ADD = 0.01;
 
     let createSaturn = function(){
 
@@ -25,34 +25,41 @@
         scene.add(planet);
 
         //DISC1
-        geometry = new THREE.TorusGeometry(9, 0.6, 2, 40); 
+        geometry = new THREE.TorusGeometry(9, 0.6, 2, 100); 
         material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
-        disc1 = new THREE.Mesh( geometry, material );
-        disc1.position.y = -10;
-        disc1.rotation.x = 1.7;
-        disc1.rotation.y = 0.4;
-        saturn.push(disc1);
-        scene.add(disc1);
+        disc = new THREE.Mesh( geometry, material );
+        disc.position.y = -10;
+        /*disc.rotation.x = 1.7;
+        disc.rotation.y = 0.4;*/
+        saturn.push(disc);
+        scene.add(disc);
 
         //DISC2
-        geometry = new THREE.TorusGeometry(7.5, 0.6, 2, 40);      
+        geometry = new THREE.TorusGeometry(7.5, 0.6, 2, 100);      
         material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
-        disc2 = new THREE.Mesh( geometry, material );
-        disc2.position.y = -10;
-        disc2.rotation.x = 1.7;
-        disc2.rotation.y = 0.4;
-        saturn.push(disc2);
-        scene.add(disc2);
+        disc = new THREE.Mesh( geometry, material );
+        disc.position.y = -10;
+        /*disc.rotation.x = 1.7;
+        disc.rotation.y = 0.4;*/
+        saturn.push(disc);
+        scene.add(disc);
 
         //DISC3
-        geometry = new THREE.TorusGeometry(10.5, 0.6, 2, 40);
+        geometry = new THREE.TorusGeometry(10.5, 0.6, 2, 100);
         material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
-        disc3 = new THREE.Mesh( geometry, material );
-        disc3.position.y = -10;
-        disc3.rotation.x = 1.7;
-        disc3.rotation.y = 0.4;
-        saturn.push(disc3);
-        scene.add(disc3);
+        disc = new THREE.Mesh( geometry, material );
+        disc.position.y = -10;
+        /*disc.rotation.x = 1.7;
+        disc.rotation.y = 0.4;*/
+        saturn.push(disc);
+        scene.add(disc);
+
+
+        saturn.forEach( disc => {
+            disc.rotation.x = 1.7
+            disc.rotation.y = 0.4
+            scene.add(disc);
+        });
     }   
     
     // set up the environment - 
@@ -66,13 +73,8 @@
         camera = new THREE.PerspectiveCamera(75, 
                         window.innerWidth / window.innerHeight, 
                         1, 1000);
-        camera.position.z = 20;
-        camera.position.y = -10;
+        camera.position.y = 10;
 
-        /*createDisc();
-        createDisc2();
-        createDisc3();
-        createSphere();*/
 
         createSaturn();
         
@@ -87,7 +89,14 @@
     
     // main animation loop - calls 50-60 times per second.
     let mainLoop = function() {
-        //disc.position.x += 0.01;
+
+        var timer = Date.now() * 0.0005;
+
+        camera.position.x = Math.cos(timer) * 30;
+        camera.position.z = Math.sin(timer) * 30;
+
+        camera.lookAt(scene.position);
+
         renderer.render(scene, camera);
         requestAnimationFrame(mainLoop);
     };
