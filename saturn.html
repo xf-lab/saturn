@@ -1,0 +1,107 @@
+
+<html>
+    <head>
+        <title>Saturn</title>
+        <link rel = "stylesheet" href = "Style.css">
+        <script src = "js/three.js"></script>       
+    </head>
+    <body>
+    </body> 
+</html>
+
+<script>    
+    let scene, camera, renderer;
+    let disc, disc2, disc3, sphere;
+    let ADD = 0.1;
+    
+    let randomInRange = function(from, to) {
+        let x = Math.random() * (to - from);
+        return x + from;
+    };
+    
+    let createDisc = function() {
+        let geometry = new THREE.TorusGeometry(9, 0.6, 2, 40);
+        
+        let material = new THREE.MeshBasicMaterial({color: 0xFFBC6C});
+        
+        
+        disc = new THREE.Mesh( geometry, material );
+        disc.position.y = -10;
+        disc.rotation.x = 1.7;
+        disc.rotation.y = 0.4;
+        scene.add(disc);
+    };
+    let createDisc2 = function() {
+        let geometry = new THREE.TorusGeometry(7.5, 0.6, 2, 40);
+        
+        let material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
+        
+        
+        disc2 = new THREE.Mesh( geometry, material );
+        disc2.position.y = -10;
+        disc2.rotation.x = 1.7;
+        disc2.rotation.y = 0.4;
+        scene.add(disc2);
+    };
+    let createDisc3 = function() {
+        let geometry = new THREE.TorusGeometry(10.5, 0.6, 2, 40);
+        
+        let material = new THREE.MeshBasicMaterial({color: 0xFF9D6C});
+        
+        
+        disc3 = new THREE.Mesh( geometry, material );
+        disc3.position.y = -10;
+        disc3.rotation.x = 1.7;
+        disc3.rotation.y = 0.4;
+        scene.add(disc3);
+    };
+     let createSphere = function() {
+        let geometry = new THREE.SphereGeometry(6.24, 30, 30, 0);
+        
+        let material = new THREE.MeshBasicMaterial({color: 0x543510});
+               
+        sphere = new THREE.Mesh( geometry, material );
+        sphere.position.y = -10;
+        scene.add(sphere);
+    };
+    
+    
+    // set up the environment - 
+    // initiallize scene, camera, objects and renderer
+    let init = function() {
+        // create the scene
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        
+        // create an locate the camera
+        camera = new THREE.PerspectiveCamera(75, 
+                        window.innerWidth / window.innerHeight, 
+                        1, 1000);
+        camera.position.z = 20;
+        camera.position.y = -10;
+
+        createDisc();
+        createDisc2();
+        createDisc3();
+        createSphere();
+        
+        // create the renderer   
+        renderer = new THREE.WebGLRenderer();   
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        document.body.appendChild(renderer.domElement);
+        
+    };
+   
+    
+    // main animation loop - calls 50-60 times per second.
+    let mainLoop = function() {
+        //disc.position.x += 0.01;
+        renderer.render(scene, camera);
+        requestAnimationFrame(mainLoop);
+    };
+    
+    ///////////////////////////////////////////////
+    init();
+    mainLoop();
+</script>
